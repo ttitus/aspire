@@ -630,6 +630,7 @@ public class AzureContainerAppsTests(ITestOutputHelper output)
 
         builder.AddContainerAppsInfrastructure();
         builder.AddContainer("api", "myimage")
+            .WithHttpEndpoint(targetPort: 1111)
             .PublishAsAzureContainerApp((module, c) =>
             {
                 c.ConfigureCustomDomain(customDomain, certificateName);
