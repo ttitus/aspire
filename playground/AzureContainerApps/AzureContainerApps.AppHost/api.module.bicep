@@ -16,8 +16,6 @@ param outputs_managed_identity_client_id string
 
 param outputs_azure_container_apps_environment_id string
 
-param outputs_azure_container_apps_environment_name string
-
 param outputs_azure_container_registry_endpoint string
 
 param api_containerimage string
