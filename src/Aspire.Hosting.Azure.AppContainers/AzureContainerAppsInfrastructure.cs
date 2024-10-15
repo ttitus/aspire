@@ -33,7 +33,6 @@ internal sealed class AzureContainerAppsInfrastructure(ILogger<AzureContainerApp
         var containerAppEnvironmentContext = new ContainerAppEnvironmentContext(
             logger,
             AzureContainerAppsEnvironment.AZURE_CONTAINER_APPS_ENVIRONMENT_ID,
-            AzureContainerAppsEnvironment.AZURE_CONTAINER_APPS_ENVIRONMENT_NAME,
             AzureContainerAppsEnvironment.AZURE_CONTAINER_APPS_ENVIRONMENT_DEFAULT_DOMAIN,
             AzureContainerAppsEnvironment.AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID,
             AzureContainerAppsEnvironment.AZURE_CONTAINER_REGISTRY_ENDPOINT,
@@ -61,7 +60,6 @@ internal sealed class AzureContainerAppsInfrastructure(ILogger<AzureContainerApp
     private sealed class ContainerAppEnvironmentContext(
         ILogger logger,
         IManifestExpressionProvider containerAppEnvironmentId,
-        IManifestExpressionProvider containerAppEnvironmentName,
         IManifestExpressionProvider containerAppDomain,
         IManifestExpressionProvider managedIdentityId,
         IManifestExpressionProvider containerRegistryUrl,
@@ -71,7 +69,6 @@ internal sealed class AzureContainerAppsInfrastructure(ILogger<AzureContainerApp
     {
         private ILogger Logger => logger;
         private IManifestExpressionProvider ContainerAppEnvironmentId => containerAppEnvironmentId;
-        private IManifestExpressionProvider ContainerAppEnvironmentName => containerAppEnvironmentName;
         private IManifestExpressionProvider ContainerAppDomain => containerAppDomain;
         private IManifestExpressionProvider ManagedIdentityId => managedIdentityId;
         private IManifestExpressionProvider ContainerRegistryUrl => containerRegistryUrl;
@@ -161,7 +158,6 @@ internal sealed class AzureContainerAppsInfrastructure(ILogger<AzureContainerApp
             public void BuildContainerApp(ResourceModuleConstruct c)
             {
                 var containerAppIdParam = AllocateParameter(_containerAppEnvironmentContext.ContainerAppEnvironmentId);
-                var containerAppNameParam = AllocateParameter(_containerAppEnvironmentContext.ContainerAppEnvironmentName);
 
                 ProvisioningParameter? containerImageParam = null;
 
@@ -996,7 +992,6 @@ internal sealed class AzureContainerAppsInfrastructure(ILogger<AzureContainerApp
         public static IManifestExpressionProvider AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID => GetExpression("AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID");
         public static IManifestExpressionProvider AZURE_CONTAINER_REGISTRY_ENDPOINT => GetExpression("AZURE_CONTAINER_REGISTRY_ENDPOINT");
         public static IManifestExpressionProvider AZURE_CONTAINER_APPS_ENVIRONMENT_ID => GetExpression("AZURE_CONTAINER_APPS_ENVIRONMENT_ID");
-        public static IManifestExpressionProvider AZURE_CONTAINER_APPS_ENVIRONMENT_NAME => GetExpression("AZURE_CONTAINER_APPS_ENVIRONMENT_NAME");
         public static IManifestExpressionProvider AZURE_CONTAINER_APPS_ENVIRONMENT_DEFAULT_DOMAIN => GetExpression("AZURE_CONTAINER_APPS_ENVIRONMENT_DEFAULT_DOMAIN");
 
         private static IManifestExpressionProvider GetExpression(string propertyExpression) =>
